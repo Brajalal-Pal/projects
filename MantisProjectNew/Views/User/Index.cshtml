@@ -1,0 +1,79 @@
+﻿@model IEnumerable<BusinessLayerProject.User>
+
+@{
+    ViewBag.Title = "Index";
+    int i = 0;
+}
+
+<h3 style="font-family: verdana;">Registered Users</h3>
+<table class="table2" style="width: 100%">
+    <tr>
+        <th>
+            &nbsp;
+        </th>
+        <th>
+            Name
+        </th>        
+        <th>
+            @Html.DisplayNameFor(model => model.EmailId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th> 
+        <th>
+            Phone
+        </th>             
+        <th>
+            @Html.DisplayNameFor(model => model.UserTypeDesc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Active)
+        </th>
+        <th>&nbsp;</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td style="text-align: center">
+                @{
+                    i = i + 1;
+                }
+
+                @i
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName), @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmailId)
+            </td>
+            <td>
+                
+                @{
+                    var str = item.Address.Trim();
+                    var newStr = str.Substring(0, str.Length < 27 ? str.Length : 27);
+                }
+
+                @newStr
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+                    
+            <td>
+                @Html.DisplayFor(modelItem => item.UserTypeDesc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Active)
+            </td>
+            <td>
+                @Html.ActionLink("View Profile", "UserProfile", "User", new { userId = item.UserId }, new { @class = "btn btn-primary" })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<br/>
+<a href="javascript:history.back()" class="btn btn-info"> &raquo; Go Back</a>

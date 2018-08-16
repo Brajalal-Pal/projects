@@ -1,0 +1,101 @@
+﻿@model BusinessLayerProject.IssueDetail
+
+@Html.Partial("_PageCheck")
+
+@{
+    ViewBag.Title = "ViewStep";
+}
+
+
+<style type="text/css">
+    /*
+     th 
+     {
+         background-color:Maroon;
+         color:White;
+         font-weight:bold;
+         font-family:Verdana;
+         font-size:12px;
+         padding:10px;
+    
+     }
+    td
+    {
+        background-color:lightblue;
+        color:black;    
+        font-family:Verdana;
+        font-size:12px;
+        padding:10px;
+    }*/
+    /*
+    .NormalRow2 th, td {
+        border-bottom: 1px solid lightblue; 
+        background-color: beige; 
+        height: 28px;
+        padding: 8px;
+        border-left: 1px solid lightblue;
+        border-right: 1px solid lightblue;
+    }
+    .paddingLeft td {
+        padding-left: 5px;
+    }
+
+    .paddingLeft td:nth-child(1){
+        font-weight: bold;
+        width: 150px;
+        padding-left: 8px;
+    }
+
+    .paddingLeft th:nth-child(1){        
+        padding-left: 8px;
+    }
+    */
+
+   .header-1 th {
+       background-color: #DDFEFB;
+   }
+   .table3 th {
+        background-color: #f2f2f2;
+        padding: 5px;
+        color:lightblue;        
+        text-shadow: 1px 2px white;
+        font-size: 14px;
+    }
+
+   .table3 tr {
+        border: 1px solid #ddd;           
+    }
+
+   .table3 td {
+        padding: 5px;        
+        box-shadow: 0 2px 0;    
+        font-size: 13px; 
+    }
+
+</style>
+<body>
+
+<h3>Ticket Detail</h3>
+    <table id="ticketSummary" style="width: 100%" class="table table-bordered header-1">
+        <tr><th colspan="2">Request Details</th></tr>
+        <tr><td style="width: 150px;">Ticket#</td> <td>@Model.MantisID/@Model.SLNO </td></tr>
+        <tr><td>Summary</td> <td>@Model.Summary </td></tr>
+        <tr><td>Assinged By</td> <td><u> @Model.AssingedBy </u></td></tr>
+        <tr><td>Assinged To</td> <td>@Model.AssingedToList </td></tr>
+        <tr><td>Reported on</td> <td>@Model.ReportDate </td></tr>
+        <tr><td>Description</td> <td><textarea rows="18" style="width: 100%;" readonly="readonly">@Model.Description</textarea></td></tr>
+        <tr style="height: 20px;"><th colspan="2">&nbsp;</th></tr>
+    </table>
+
+
+    @Html.ActionLink("Back to List", "Details", "Ticket", new {MantisId = Model.MantisID, id ="backLink"}, new {@class="btn btn-info"})
+
+</body>
+
+<script type="text/javascript">
+    jQuery("#hideButton").click(function () {
+        $('#ticketSummary').fadeOut();
+        
+    });
+    
+</script>

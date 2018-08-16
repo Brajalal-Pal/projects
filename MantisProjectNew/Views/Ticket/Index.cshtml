@@ -1,0 +1,126 @@
+﻿@model IEnumerable<BusinessLayerProject.IssueDetail>
+
+@Html.Partial("_PageCheck")
+
+@{
+    ViewBag.Title = "Index";
+    //Session["UserEmail"] = "bpal@medline.com";
+    var x = "";
+    string str = "";
+    string newStr = "";
+    
+    
+}
+<style type="text/css">
+    .paddingStyle td {
+        padding: 5px;
+    }
+</style>
+
+<h2>Request List</h2>
+<table style="width: 100%;" class="table2">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MantisID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Summary)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AssingedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReportDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Priority)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TypeOfWork)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TaskComplexity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </th>
+        <th>
+            Status
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+
+        if (item.Estimated != "-1")
+        {
+            x = "block";
+        }
+        else
+        {
+            x = "none";
+        }
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MantisID)
+            </td>
+
+            <td>
+                
+                @{
+                    str = item.Summary.Trim();
+                    var l = str.Length;
+                    newStr = str.Substring(0, l<20? l: 20);
+                }
+                @newStr ..
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AssingedBy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReportDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Priority)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypeOfWork)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaskComplexity)
+            </td>
+            <td>
+                @item.StartDate.ToShortDateString()
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CurrentStatus)
+            </td>
+            <td nowrap>
+
+                @Html.ActionLink("Detail", "Details", "Ticket", new { MantisId = item.MantisID }, new { @class = "btn btn-info" })
+                @if (item.Estimated == "-1")
+                {
+                    @Html.ActionLink("Estimate", "Index", "Estimate", new { MantisId = item.MantisID}, new { @class = "btn btn-primary", @style="display:none;" })    
+                }
+                else
+                {
+                    @Html.ActionLink("Estimate", "Index", "Estimate", new { MantisId = item.MantisID }, new {@class="btn btn-primary"})
+                }
+                
+                <!--
+                <input type="button" class="btn btn-primary" value="Details" />
+                <input type="button" class="btn btn-primary" value="Estimate" />
+                -->
+            </td>
+        </tr>
+    }
+
+</table>
+<br /> 
+
+@Html.ActionLink("Add new Request", "Create", "Ticket", new { MantisId = 0 }, new { @class = "btn btn-info" })
+@Html.ActionLink("Complexity & Priority chart", "TaskComplexityAndPriority", "Estimate", new { }, new { @class = "btn btn-info" })
+@Html.ActionLink("Current Status Graph", "Status", "Estimate", new { MantisId = 0 }, new { @class = "btn btn-info" })

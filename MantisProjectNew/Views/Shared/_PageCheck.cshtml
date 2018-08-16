@@ -1,0 +1,6 @@
+﻿@{
+    if ((bool?) Session["ValidUser"] == false)
+    {
+        Html.RenderAction("Index", "User");
+    }
+}

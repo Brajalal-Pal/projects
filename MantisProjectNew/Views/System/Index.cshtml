@@ -1,0 +1,64 @@
+﻿@model IEnumerable<BusinessLayerProject.Approver>
+@{
+    var slno = 0;
+}
+<h2>Approvers</h2>
+<table class="table2" style="width: 100%">
+    <tr>
+        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserEmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserPhone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ApproverName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ApproverEmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ApproverPhone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    slno = slno + 1;
+    <tr>
+        <td style="padding-left: 8px;">@slno</td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserEmail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserPhone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ApproverName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ApproverEmail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ApproverPhone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsActive)
+        </td>
+        <td></td>
+    </tr>
+}
+
+   
+</table>

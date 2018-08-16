@@ -1,0 +1,47 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+    @Html.AntiForgeryToken()
+
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+        </li>
+        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+    </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li style="display: none">@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li style="padding-top: 10px; padding-right: 10px">
+            @{
+                bool loggedIn = false;
+                if (Session["ValidUser"] != null)
+                {
+                    if ((bool)Session["ValidUser"] == true)
+                    {
+                        <span>@Session["LastName"], @Session["FirstName"] (@Session["UserTypeDesc"])</span>
+                        loggedIn = true;
+                    }
+                }
+            }
+        </li>
+
+        <li style="padding-top: 10px;"><img src="/Content/images/Tower.jpg"/></li>
+        @{
+            if (loggedIn == true)
+            {
+                <li>@Html.ActionLink("Log Out", "Logout", "User", routeValues: null, htmlAttributes: new { id = "logoutLink" })</li>
+            }
+            else
+            {
+                    <li>@Html.ActionLink("Log in", "Login", "User", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+             }
+         }
+        
+    </ul>
+}

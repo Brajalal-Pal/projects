@@ -1,0 +1,72 @@
+﻿@using System.Drawing
+@model BusinessLayerProject.User
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<br />
+      
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="row jumbotron2">
+            <div class="col-md-8">
+                <h1>
+                    ReQuest Tracker <br />
+                    Managing your story !!<br/>
+                    
+                </h1>
+                <img style="display: none" src="/Content/images/Graph.jpg" />
+            </div>  
+            <div class="col-md-4">
+                <table><tr><th style="width: 305px; padding-left: 12px; background: linear-gradient(to top, lightcyan, gold); height: 30px; border-radius: 0 10px 0 0;">User Login</th></tr></table>
+                <table class="headerRow" style="padding: 1px; width: 305px; height: 115px; border-radius: 5px 0 5px 5px;">
+
+                    <tr>
+                        <th style="width: 110px"><br/> @Html.LabelFor(model => model.UserId, htmlAttributes: new {@class = "control-label col-md-2"}) </th>
+                        <td align="left">
+                            <br/>
+                            @Html.EditorFor(model => model.UserId, new {@class = "form-control", Size = 30, maxlength = 20})
+                            @Html.ValidationMessageFor(model => model.UserId, "", new {@class = "text-danger"})
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <th>@Html.LabelFor(model => model.Password, htmlAttributes: new {@class = "control-label col-md-2"}) </th>
+                        <td>
+                            @Html.EditorFor(model => model.Password, new {@class = "form-control", size = 40, maxlength = 20})
+                            @Html.ValidationMessageFor(model => model.Password, "", new {@class = "text-danger"})
+                        </td>
+                    </tr>
+                    <tr><th>&nbsp;</th><td><input type="submit" value="Submit" class="btn btn-default"/> <br/></td></tr>
+                    <tr><th colspan="2">&nbsp;</th></tr>
+                </table>
+            </div>
+        </div>
+
+    }
+   
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }
+
+<script type="text/javascript">
+    //$('#login form').hide();
+    $('#login a').toggle(function() {
+        $(this)
+            .addClass('active')
+            .next('form')
+            .animate({'height':'show'}, {
+                duration: 'slow',
+                easing: 'easeOutBounce'
+            });
+    }, function() {
+        $(this)        
+            .removeClass('active')
+            .next('form')
+            .slideUp();
+    });
+</script>

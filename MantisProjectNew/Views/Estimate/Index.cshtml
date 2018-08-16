@@ -1,0 +1,61 @@
+﻿@model IEnumerable<BusinessLayerProject.Estimate>
+
+<style type="text/css">
+    .firstColPadding td:nth-child(1) {
+        font-weight: bold;
+        padding-left: 8px;
+    }
+</style>
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+            <br/>
+            <h4>Request# @ViewBag.MantisId</h4>
+            <h5 style="font-weight: bold;">@(((BusinessLayerProject.IssueDetailMaster)ViewBag.IssueDetailMaster).IssueTitle)</h5>
+            <table class="table2 firstColPadding" style="width: 250px;">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SLNO)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EstimateDesc)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Hours)
+                    </th>
+
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SLNO)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EstimateDesc)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Hours)
+                        </td>
+
+                    </tr>
+                }                
+                
+                <tr><td colspan="3" style="text-align: right">@Html.ActionLink("Update Estimate", "Edit", new { MantisId = ViewBag.MantisId })</td></tr>
+            </table>
+            <br/>
+            <a href="javascript:history.back();" class="btn btn-info">&laquo; Go Back</a>
+
+        </div>
+        <br/>
+        <div class="col-md-7">
+            <img src="@ViewBag.chartImage" height="60%"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12" style="text-align: center;display: none">
+            <h3><b>Estimate for the Request #@ViewBag.MantisId </b></h3>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,212 @@
+﻿@using System.Net.Mime
+@model BusinessLayerProject.IssueDetail
+
+@Html.Partial("_PageCheck")
+
+@{
+    ViewBag.Title = "Create";
+    var requestHeader = "";
+    //Layout = null;
+    
+}
+
+<style type="text/css">
+ /*
+     th 
+     {
+         background-color:Maroon;
+         color:White;
+         font-weight:bold;
+         font-family:Verdana;
+         font-size:12px;
+    
+    
+     }
+    td
+    {
+        background-color:lightblue;
+        color:black;    
+        font-family:Verdana;
+        font-size:12px;
+    
+        padding:5px;
+    }
+    .cssTextBox
+    {
+        width: 100%;
+    }
+
+    .cssTextArea
+    {
+        width:1280px;
+        height:200px;
+    }
+    */
+
+ .classFileUpload {
+     width: 195px;
+ }
+    
+</style>
+    
+
+
+<h4>Ticket Detail</h4>
+
+<table style="width: 100%;" class="table2">
+@if (Model.MantisID > 0)
+{
+    requestHeader = "Reply to above request";
+
+<tr style="height: 25px;"><td colspan="2">Last Request Details</td></tr>
+<tr style="height: 20px; padding-left: 5px; border-bottom: 1px solid lightblue;">
+        <th style="width:150px;font-weight: bold;padding: 3px;">&nbsp;</th>
+        <td>
+            <table style="width: 100%">
+                <tr>
+                    <th style="padding: 3px;">Ticket ID#</th>
+                    <td>@Model.MantisID/@Model.SLNO</td>
+
+                    <th style="padding: 3px;">Assinged By</th>
+                    <td>@Model.AssingedBy</td>
+                    <th style="padding: 3px;">Last report date</th>
+                    <td>@Model.ReportDate</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+
+    <tr style="height: 20px; border-bottom: 1px solid lightblue;">
+        <th style="padding: 3px;">Summary</th>
+        <td style="padding: 3px;">@Model.Summary</td>
+    </tr>
+        <tr style="border-bottom: 1px solid lightblue;"><th style="padding-left: 8px">
+            Description
+        </th>
+        <td><div id="detailReadonly" style="width:100%;height:100px;overflow:scroll; padding: 8px; background-color: beige;">
+            @Model.Description
+            </div>
+        </td>
+    </tr>
+    <tr style="height: 20px; border: 0;">
+        <th style="padding: 3px; border-top: 1px solid lightblue; border-left: navy;">
+            Assinged To
+        </th>
+        <td style="padding: 3px; border-top: 1px solid lightblue;border-right: 1px solid navy">
+            @Model.AssingedToList
+        </td>
+    </tr>
+}
+else
+{
+    requestHeader = "New Request";
+}
+  
+ <tr><th colspan="2">@requestHeader</th></tr>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    
+    <tr style="height: 30px">
+        <th style="padding: 8px;">
+            <input type="hidden" value="@Model.MantisID" id="MantisID" />
+            <input type="hidden" value="@Model.SLNO" id="SLNO" />
+
+
+            @Html.LabelFor(model => model.Summary)
+        </th>
+        <td>
+
+            @Html.TextBoxFor(model => model.Summary, "Re:" + @Model.Summary, new { style = "width:100%;height:30px;padding: 8px; background-color:honeydew", maxlength = 250 })
+            @Html.ValidationMessageFor(model => model.Summary)
+        </td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>
+            <table style="width: 100%">
+                <tr>
+                    <td>Request Type</td>
+                    <td>
+                        <select id="typeOfWork">
+                            @foreach (var item in ViewBag.typeOfWork)
+                            {
+                                <option value="@item.SettingId">@item.SettingValue</option>
+                            }
+                        </select>
+                    </td>
+                    <td>Priority</td>
+                    <td>
+                        <select id="priority">
+                            @foreach (var item in ViewBag.priority)
+                            {
+                                <option value="@item.SettingId">@item.SettingValue</option>
+                            }
+                        </select>
+                    </td>
+                    <td>Task Complexity</td>
+                    <td>
+                        <select id="taskComplexity">
+                            @foreach (var item in ViewBag.taskComplexity)
+                            {
+                                <option value="@item.SettingId">@item.SettingValue</option>
+                            }
+                        </select>
+                    </td>
+                    <td>Ref #</td>
+                    <td><input type="text" name="RefNumber" size="10" maxlength="25"/></td>
+                    <td><span id="CurrDate" style="width: 50px">0000</span> </td>
+                </tr>
+
+            </table>
+        </td>
+        </tr>
+        <tr style="height: 30px;"><th style="padding: 8px">        
+            Assinged To
+        </th>
+            <td style="border: 1px solid beige; border-right: 1px solid navy; padding: 8px">
+                @foreach (var item in ViewBag.Users)
+                {
+                    <input type="checkbox" value="@item.EmailId" id="EmailList" />
+                    @(item.FirstName + ' ' + item.LastName) <text>&nbsp;</text>
+                    
+                }
+            </td>
+        </tr>
+                
+    <tr style="height: 30px"><th style="padding: 8px;">
+            @Html.LabelFor(model => model.Description)
+        </th>
+        <td style="border: 1px solid beige; border-right: 1px solid navy; padding-bottom: 5px;">
+        
+            @Html.TextAreaFor(model => model.Description, new { rows = 16, cols = 135, style = "border:1px solid ;padding: 8px; width:100%; background-color:honeydew" })
+            @Html.ValidationMessageFor(model => model.Description)
+        </td>
+    </tr>
+    <tr style="height: 30px">
+        <th style="padding: 8px;">Attach File</th>
+        <td style="background-color:beige; border: 1px solid lightblue; border-right: 1px solid navy; padding: 8px; box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);">
+            File 1: &nbsp;<input type="file" id="file1" name="file1" class="classFileUpload"/> File 2: &nbsp;<input type="file" id="file2" name="file2" class="classFileUpload" />File 3: &nbsp;<input type="file" id="file3" name="file3" class="classFileUpload" />File 4: &nbsp;<input type="file" id="file4" name="file4" class="classFileUpload" />
+        </td>
+    </tr>
+        <tr><td colspan="2" style="background-color: beige; font-size:12px; font-weight:bold; text-align:right; padding: 3px; border-top: 1px solid beige; border-left: 1px solid navy; border-bottom: 1px solid navy; border-right: 1px solid navy; "><input type="submit" value="Submit" style="height: 30px; width: 85px; font-weight: bolder; color: navy; box-shadow: 1px 1px #888888;" /></td></tr>
+}
+</table>
+<div><br/>    
+    <a href="/Ticket/Details?MantisID=@Model.MantisID" class="btn btn-info">&laquo; Back to Summary</a>
+</div>
+
+<script language="javascript" type="text/javascript">
+
+
+    function ShowCurrDateTime()
+    {
+        var d = (new Date()).toString();
+        var x = d.split("(");
+        document.getElementById("CurrDate").innerHTML = x[0]; 
+    }
+    window.setInterval(ShowCurrDateTime, 1000);
+    ShowCurrDateTime();
+
+</script>

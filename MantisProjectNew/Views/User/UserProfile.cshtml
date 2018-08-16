@@ -1,0 +1,154 @@
+﻿@model BusinessLayerProject.User
+@{
+    var userImgage = Model.ImageName;
+    if (userImgage.Trim().Length == 0)
+    {
+        userImgage = "noimage.png";
+    }
+    var countryImage = "";
+    if (Model.Ethnic.Trim() == "Indian")
+    {
+        countryImage = "India.png";
+    }
+    else if (Model.Ethnic.Trim() == "French")
+    {
+        countryImage = "France.png";
+    }
+    else if (Model.Ethnic.Trim() == "German")
+    {
+        countryImage = "Germany.png";
+    }
+    else if (Model.Ethnic.Trim() == "Belgiun")
+    {
+        countryImage = "Belgium.png";
+    }
+    
+    else
+    {
+        
+        countryImage = "";
+    }
+    
+}
+<style type="text/css">
+ 
+ .table3 {
+        border: 1px solid green;
+        border-radius: 6px;
+        box-shadow: 1px;
+        font-family: sans-serif;
+     font-size: 16px;
+    }
+
+ .table3 td {
+     padding: 10px;
+     border: 1px solid #ddd;
+     box-shadow: 1px 1px;
+    }
+
+ .table3 th {
+     color:black;
+     border: 1px solid #ddd;
+     /*text-shadow: 1px 2px white;*/
+     padding: 10px;
+     background-color: lightblue;
+ }
+ 
+
+</style>
+<div class="row jumbotron2">
+    <div class="col-md-2">
+        
+    </div>
+    <div class="col-md-6">
+        <table style="width: 100%; height: 360px;" class="table3">
+            <tr>
+                <th nowrap="nowrap">
+                    Name
+                </th>
+
+                <td style="text-shadow: 1px 2px white;font-weight: bold">
+                    @Html.DisplayFor(model => model.LastName), @Html.DisplayFor(model => model.FirstName)
+                </td>
+            </tr>
+            <tr>
+                <th nowrap="nowrap">
+                    @Html.DisplayNameFor(model => model.Ethnic) 
+                    
+                </th>
+
+                <td>
+                    <img src="/Content/images/@countryImage" style="width: 10%;" /> &nbsp;
+                    @Html.DisplayFor(model => model.Ethnic)
+
+                </td>
+            </tr>
+            <tr>
+                <th nowrap="nowrap">
+                    @Html.DisplayNameFor(model => model.UserTypeDesc)
+                </th>
+
+                <td>
+                    <img src="/Content/images/Admin.png" style="width: 10%;" /> &nbsp;
+                    @Html.DisplayFor(model => model.UserTypeDesc)
+                </td>
+            </tr>
+            <tr>
+                <th nowrap="nowrap">
+                    Profile Created on
+                </th>
+
+                <td>
+                    
+                    <img src="/Content/images/Calendar.jpg" style="width: 10%;" /> &nbsp;
+                    @Html.DisplayFor(model => model.CreatedDate)
+                </td>
+            </tr>
+            <tr>
+                <th nowrap="nowrap">
+                    @Html.DisplayNameFor(model => model.EmailId)
+                </th>
+
+                <td>
+                    <img src="/Content/images/EmailAddress.png" style="width: 10%;" /> &nbsp;
+                    <a style="text-decoration: underline" href="mailto:@Model.EmailId">@Model.EmailId</a> 
+                </td>
+            </tr>
+            
+                       
+            <tr>
+                <th nowrap="nowrap">
+                    @Html.DisplayNameFor(model => model.Phone)
+                </th>
+
+                <td>
+                   <img src="/Content/images/ColorPhone.png" style="width: 10%;"/> &nbsp; @Html.DisplayFor(model => model.Phone) 
+                </td>
+            </tr>
+            
+            <tr>
+                <th nowrap="nowrap">
+                    @Html.DisplayNameFor(model => model.Address)
+                </th>
+
+                <td>
+                    <img src="/Content/images/Home.png" style="width: 10%;" /> &nbsp;
+                    @Html.DisplayFor(model => model.Address)
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-md-4">
+        
+        <table style="width: 100%; height: 360px" class="table3">
+            <tr><td align="center">
+                <img src="/Content/images/@userImgage" height="340px" width="280px"/>
+            </td></tr>
+        </table>
+    </div>
+</div>
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.UserId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

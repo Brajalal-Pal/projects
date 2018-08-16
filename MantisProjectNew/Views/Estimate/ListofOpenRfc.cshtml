@@ -1,0 +1,78 @@
+﻿@model IEnumerable<BusinessLayerProject.ListofOpenRfc>
+
+<h2>
+    List of Open RFC with no Estimation
+</h2>
+<table class="table2" style="width: 100%">
+    <tr>
+        <th>SLNO</th>
+        <th>
+            @Html.DisplayNameFor(model => model.MantisId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IssueTitle)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.ReportDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AssingedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Priority)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TaskComplexity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>1</td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MantisId)
+        </td>
+        <td>
+            
+            @{
+                var str1 = item.IssueTitle.Trim();
+                var newStr1 = str1.Substring(0, str1.Length < 50 ? str1.Length : 50);
+            }
+
+            @newStr1
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.ReportDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AssingedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Priority)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TaskComplexity)
+        </td>
+        <td>
+
+            @{
+                var str = item.Description.Trim();
+                var newStr = str.Substring(0, str.Length < 60 ? str.Length : 60);
+            }
+
+            @newStr
+        </td>
+        <td>
+            @Html.ActionLink("Send Estimate", "Send", "Estimate", new { MantisId = item.MantisId }, new { @class = "btn btn-primary" }) 
+           
+        </td>
+    </tr>
+}
+
+</table>
