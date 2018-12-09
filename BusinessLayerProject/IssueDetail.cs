@@ -34,7 +34,7 @@ namespace BusinessLayerProject
         [Display(Name = "Date")]
         public DateTime StatusDate { get; set; }
         public string Estimated { get; set; }
-        //public List<AssingedToList> AssingedToLists { get; set; }
+        public List<AssingedToList> AssingedToLists { get; set; }
 
     }
 }

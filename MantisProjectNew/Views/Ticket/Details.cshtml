@@ -35,7 +35,7 @@
 
 <h2>Issue Summary</h2>
 <table style="width: 170px;" class="tab-header">
-    <tr><th>&nbsp;Ticket#</th><th align="left">@Request.QueryString["MantisID"]</th></tr>    
+    <tr><th>&nbsp;Ticket#</th><th align="left">@Request.QueryString["MantisId"]</th></tr>    
 </table>
 <table style="width: 100%;" class="table2">    
     <tr>
@@ -105,4 +105,4 @@
 
 </table>
 <br />
- @Html.ActionLink("Back to open Ticket(s)", "Index", "Ticket", new { }, new { @class = "btn btn-info" }) &nbsp;&nbsp; @Html.ActionLink("Send Feedback", "Create", "Ticket", new { MantisID = @Request.QueryString["MantisID"] },new {@class="btn btn-primary"})
+ @Html.ActionLink("Back to open Ticket(s)", "Index", "Ticket", new { }, new { @class = "btn btn-info" }) &nbsp;&nbsp; @Html.ActionLink("Send Feedback", "Create", "Ticket", new { MantisID = @Request.QueryString["MantisId"] },new {@class="btn btn-primary"})

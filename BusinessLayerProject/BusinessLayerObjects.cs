@@ -29,7 +29,7 @@ namespace BusinessLayerProject
             {
                 EstimateForRequest obj = new EstimateForRequest();
                 obj.MantisId = (long)dr["MantisId"];
-                obj.SLno = (short) dr["SLNO"];
+                obj.SLno = (short) dr["Slno"];
                 obj.EstimateType = dr["EstimateType"].ToString();                
                 obj.Hours = (short)dr["Hours"];
                 obj.LastUpdateDate = (DateTime)dr["LastUpdatedDate"];
@@ -162,7 +162,7 @@ namespace BusinessLayerProject
             {
                 Estimate obj = new Estimate();
                 obj.MantisId = (long)dr["MantisId"];
-                obj.SLNO =(byte)dr["SLNO"];
+                obj.SLNO =(byte)dr["Slno"];
                 obj.EstimateDesc = dr["Estimate"].ToString();
                 obj.Hours =(double) dr["Hours"];               
                 list.Add(obj);
@@ -218,7 +218,7 @@ namespace BusinessLayerProject
             InitializeConnectionString();
             SqlConnection con = new SqlConnection(dbcs);
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "select * from AssingedToList where MantisID = "+ MantisID + "and SLNO = " +SLNO;
+            cmd.CommandText = "select * from AssingedToList where MantisId = "+ MantisID + "and Slno = " +SLNO;
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
             con.Open();
@@ -227,8 +227,8 @@ namespace BusinessLayerProject
             while (dr.Read())
             {
                 AssingedToList obj = new AssingedToList();
-                obj.MantisID = MantisID;
-                obj.SLNO = SLNO;
+                obj.MantisId = MantisID;
+                obj.Slno = SLNO;
                 obj.AssingedTo = dr["AssingedTo"].ToString();
                 obj.Note = dr["note"].ToString();
                 AssingedToLists.Add(obj);
@@ -247,7 +247,7 @@ namespace BusinessLayerProject
             InitializeConnectionString();
             SqlConnection con = new SqlConnection(dbcs);
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "select * from AssingedToList where MantisID = " + MantisID + "and SLNO = " + SLNO;
+            cmd.CommandText = "select * from AssingedToList where MantisId = " + MantisID + "and Slno = " + SLNO;
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
             con.Open();
@@ -271,14 +271,14 @@ namespace BusinessLayerProject
             InitializeConnectionString();
             SqlConnection con = new SqlConnection(dbcs);
             SqlCommand cmd = new SqlCommand();
-            //cmd.CommandText = "select * from IssueDetail where SLNo = 1 order by MantisID desc";
-            //cmd.CommandText = "select a.*, m.StartDate, m.CurrentStatus, StatusDate from IssueDetail a, IssueDetailMaster m where a.MantisID = m.MantisID  and a.SLNo = 1 order by a.MantisID desc";
+            //cmd.CommandText = "select * from IssueDetail where SLNo = 1 order by MantisId desc";
+            //cmd.CommandText = "select a.*, m.StartDate, m.CurrentStatus, StatusDate from IssueDetail a, IssueDetailMaster m where a.MantisId = m.MantisId  and a.SLNo = 1 order by a.MantisId desc";
             cmd.CommandText =
-                "select a.MantisID, a.SLNo, m.IssueTitle Summary, a.AssingedBy, a.ReportDate,a.Description ,"
+                "select a.MantisId, a.SLNo, m.IssueTitle Summary, a.AssingedBy, a.ReportDate,a.Description ,"
                 + " m.Priority,m.TypeOfWork, m.TaskComplexity, m.StartDate, m.CurrentStatus, StatusDate , Isnull(e.Estimate,'-1') Estimated "
-                + " from IssueDetail a inner join IssueDetailMaster m on a.MantisID = m.MantisID "
-                + " left join (select * from Estimate where slno=1) e on m.MantisID = e.MantisId"
-                + " where  a.SLNo = 1 order by a.MantisID desc";
+                + " from IssueDetail a inner join IssueDetailMaster m on a.MantisId = m.MantisId "
+                + " left join (select * from Estimate where slno=1) e on m.MantisId = e.MantisId"
+                + " where  a.SLNo = 1 order by a.MantisId desc";
 
             
             cmd.CommandType = CommandType.Text;
@@ -290,8 +290,8 @@ namespace BusinessLayerProject
             while (dr.Read())
             {
                 IssueDetail obj = new IssueDetail();
-                obj.MantisID =(long)dr["MantisID"];
-                obj.SLNO = Convert.ToByte(dr["SLNO"]);
+                obj.MantisID =(long)dr["MantisId"];
+                obj.SLNO = Convert.ToByte(dr["Slno"]);
                 obj.Summary = dr["Summary"].ToString();
                 obj.AssingedBy = dr["AssingedBy"].ToString();
                 obj.ReportDate = Convert.ToDateTime(dr["ReportDate"]);
@@ -306,7 +306,7 @@ namespace BusinessLayerProject
                 obj.StatusDate = (DateTime)dr["StatusDate"];
                 obj.Estimated = dr["Estimated"].ToString();
                 obj.AssingedToList = GetAssingedToListById(obj.MantisID, obj.SLNO);
-                //obj.AssingedToLists = GetAssingedToList(obj.MantisID, obj.SLNO); //Get the list of AssingedToList
+                //obj.AssingedToLists = GetAssingedToList(obj.MantisId, obj.Slno); //Get the list of AssingedToList
                 issueDetails.Add(obj);
             }
 
@@ -323,7 +323,7 @@ namespace BusinessLayerProject
             IssueDetailMaster obj = new IssueDetailMaster();
             SqlConnection con = new SqlConnection(dbcs);
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "SELECT [MantisID],[StartDate],[CurrentStatus],[StatusDate],[IssueTitle],[TypeOfWork],[Priority],[TaskComplexity] FROM IssueDetailMaster where MantisID = @MantisId";
+            cmd.CommandText = "SELECT [MantisId],[StartDate],[CurrentStatus],[StatusDate],[IssueTitle],[TypeOfWork],[Priority],[TaskComplexity] FROM IssueDetailMaster where MantisId = @MantisId";
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.Add(new SqlParameter("@MantisId", MantisId));
             cmd.Connection = con;
@@ -352,7 +352,7 @@ namespace BusinessLayerProject
             InitializeConnectionString();
             SqlConnection con = new SqlConnection(dbcs);
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "select * from IssueDetail where MantisID = "+ MantisId + " order by SLNo";
+            cmd.CommandText = "select * from IssueDetail where MantisId = "+ MantisId + " order by SLNo";
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
             con.Open();
@@ -362,15 +362,15 @@ namespace BusinessLayerProject
             while (dr.Read())
             {
                 IssueDetail obj = new IssueDetail();
-                obj.MantisID = (long)dr["MantisID"];
-                obj.SLNO = Convert.ToByte(dr["SLNO"]);
+                obj.MantisID = (long)dr["MantisId"];
+                obj.SLNO = Convert.ToByte(dr["Slno"]);
                 obj.Summary = dr["Summary"].ToString();
                 obj.AssingedBy = dr["AssingedBy"].ToString();
                 obj.ReportDate = Convert.ToDateTime(dr["ReportDate"]);
                 obj.Description = dr["Description"].ToString();
                 obj.Priority = dr["Priority"].ToString();
                 obj.AssingedToList = GetAssingedToListById(obj.MantisID, obj.SLNO);
-                //obj.AssingedToLists = GetAssingedToList(obj.MantisID, obj.SLNO); //Get the list of AssingedToList
+                //obj.AssingedToLists = GetAssingedToList(obj.MantisId, obj.Slno); //Get the list of AssingedToList
                 issueDetails.Add(obj);
             }
 
@@ -387,7 +387,7 @@ namespace BusinessLayerProject
             InitializeConnectionString();
             SqlConnection con = new SqlConnection(dbcs);
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "select * from IssueDetail where MantisID = " + MantisId + " and SLNO = " + SLNO +" order by SLNo";
+            cmd.CommandText = "select * from IssueDetail where MantisId = " + MantisId + " and Slno = " + SLNO +" order by SLNo";
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
             con.Open();
@@ -396,8 +396,8 @@ namespace BusinessLayerProject
             IssueDetail obj = new IssueDetail();
             while (dr.Read())
             {                
-                obj.MantisID = (long)dr["MantisID"];
-                obj.SLNO = Convert.ToByte(dr["SLNO"]);
+                obj.MantisID = (long)dr["MantisId"];
+                obj.SLNO = Convert.ToByte(dr["Slno"]);
                 obj.Summary = dr["Summary"].ToString();
                 obj.AssingedBy = dr["AssingedBy"].ToString();
                 obj.ReportDate = Convert.ToDateTime(dr["ReportDate"]);
@@ -419,7 +419,7 @@ namespace BusinessLayerProject
             InitializeConnectionString();
             SqlConnection con = new SqlConnection(dbcs);
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "select * from IssueDetail where MantisID = " + MantisId + " and SLNO = (select max(slno) from IssueDetail where mantisid = " + MantisId + " )";
+            cmd.CommandText = "select * from IssueDetail where MantisId = " + MantisId + " and Slno = (select max(slno) from IssueDetail where mantisid = " + MantisId + " )";
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
             con.Open();
@@ -428,8 +428,8 @@ namespace BusinessLayerProject
             IssueDetail obj = new IssueDetail();
             while (dr.Read())
             {
-                obj.MantisID = (long)dr["MantisID"];
-                obj.SLNO = Convert.ToByte(dr["SLNO"]);
+                obj.MantisID = (long)dr["MantisId"];
+                obj.SLNO = Convert.ToByte(dr["Slno"]);
                 obj.Summary = dr["Summary"].ToString();
                 obj.AssingedBy = dr["AssingedBy"].ToString();
                 obj.ReportDate = Convert.ToDateTime(dr["ReportDate"]);
@@ -577,8 +577,8 @@ namespace BusinessLayerProject
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Connection = con;
 
-            cmd.Parameters.Add(new SqlParameter("@MantisID", id.MantisID));
-            cmd.Parameters.Add(new SqlParameter("@SLNO", id.SLNO));
+            cmd.Parameters.Add(new SqlParameter("@MantisId", id.MantisID));
+            cmd.Parameters.Add(new SqlParameter("@Slno", id.SLNO));
             cmd.Parameters.Add(new SqlParameter("@Summary", id.Summary));
             cmd.Parameters.Add(new SqlParameter("@AssingedBy", id.AssingedBy));
             //cmd.Parameters.Add(new SqlParameter("@ReportDate", null));

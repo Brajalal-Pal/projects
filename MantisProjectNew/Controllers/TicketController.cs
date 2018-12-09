@@ -8,6 +8,7 @@ using BusinessLayerProject;
 
 namespace MantisProjectNew.Controllers
 {
+    [Authorize]
     public class TicketController : Controller
     {
         public ActionResult Index()
@@ -31,10 +32,10 @@ namespace MantisProjectNew.Controllers
 
         public ActionResult Create(long MantisID)
         {
-            if (Session["EmailId"] == null)
-            {
-                return RedirectToAction("Index", "User");
-            }
+            //if (Session["EmailId"] == null)
+            //{
+            //    return RedirectToAction("Index", "User");
+            //}
 
             IssueDetail id = new IssueDetail();
 
@@ -73,13 +74,13 @@ namespace MantisProjectNew.Controllers
             
             Debug.Print(id.AssingedToList);
 
-            Int64 MantisId2 = obj.SaveIssueDetail(id);
+            Int64 MantisId = obj.SaveIssueDetail(id);
 
 
             /*var Users = obj.GetUserList();
             ViewBag.Users = Users;*/
 
-            return RedirectToAction("Details", new { MantisId = MantisId2 });
+            return RedirectToAction("Details", new { MantisId = MantisId });
         }
 
         

@@ -8,6 +8,7 @@ using BusinessLayerProject;
 
 namespace MantisProjectNew.Controllers
 {
+    [Authorize]
     public class EstimateController : Controller
     {
         // Attribute rout example

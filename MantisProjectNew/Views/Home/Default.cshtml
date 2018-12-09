@@ -1,0 +1,114 @@
+﻿
+@{
+    ViewBag.Title = "Default";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    .firstColPadding {
+        padding-left: 15pt;
+    }
+</style>
+<script type="text/javascript">
+    window.onload = function() {
+        var btn = document.getElementById("btnGetData");
+        btn.addEventListener("click",
+            function (e) {
+                //getObject();
+                //return;
+                /*
+                var myObject = {
+                    ColumnName: "MantisId",
+                    ColumnType: "int",
+                    ColumnValue: 20180919001
+                };*/
+                var myObject = getObject();
+                $.ajax({
+                    url: "/Home/AjaxData",
+                    type: "POST",
+                    data: JSON.stringify(myObject),
+                    dataType: "json",
+                    traditional: true,
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data1) {
+                        //alert(data1[0]);
+                        console.dir(data1);
+
+                    },
+                    error: function () {
+                        alert("An error has occured!!!");
+                    }
+                });
+            });
+
+        function getObject() {
+            var cnts = document.getElementsByClassName("form-control");
+            var columnValue = "";
+            var str = "";
+            var a = new Array();
+            var abc = null;
+            
+            for (var i = 0; i < cnts.length-1 ; i++) {
+                var colNameNType = cnts[i].name.split("_");
+                columnValue = cnts[i].value;
+                str = str + "{\"ColumnName\": \"" + colNameNType[0] + "\", \"ColumnType\": \"" + colNameNType[1] + "\", \"ColumnValue\": \"" + columnValue + "\"}";
+                abc = "{\"ColumnName\": \"" + colNameNType[0] + "\", \"ColumnType\": \"" + colNameNType[1] + "\", \"ColumnValue\": \"" + columnValue + "\"}";
+                try {
+                    abc = JSON.parse(abc);
+                    a.push(abc);
+                } catch (ex) {
+                    alert(ex.toString());
+                }
+                if (i !== cnts.length - 1) {
+                    //str = str + ", ";
+                }
+            }
+
+            var obj = null;
+            var x = null;
+            var p = null;
+            /*
+            try {
+                //obj = "{ \"columns\": [ " + str + " ] }";
+                //obj = "[ " + str + " ]";
+                //x = '{"columns": [{ "ColumnName": "MantisId", "ColumnType": "INT", "ColumnValue": "ww" }, { "ColumnName": "Title", "ColumnType": "STRING", "ColumnValue": "ss" }]}';
+                p = JSON.parse(str);
+                //p = JSON.parse(str);
+            } catch (ex) {
+                alert(ex.toString());
+            }
+            */
+
+            var obj2 = {
+                columns: [{ name: "brajalal", age: 45 }, { name: "ujjayanta", age: 6 }]
+            };
+            //alert(JSON.stringify(p));
+            console.dir(a);
+
+            var data = '{ "candidates": [ {"name": "bpal","skills": ["asp.net","mvc","javascript","css"], "age":"45" }, { "name": "upal", "skills": ["drawing","singing","painting"],"age":"5"}]}';
+            return JSON.parse(data);
+        }
+
+        
+    }
+
+</script>
+<h2>Single page Ajax Application</h2>
+<form>
+    <table class="table2" style="width: 650px">
+        <tr><th>&nbsp;</th><th>Table Name</th><th>Column Name</th><th>Data type</th><th>Value</th></tr>
+        <tr><td style="padding-left: 10px;">1</td><td>IssueDetail</td><td>MantisId</td><td>INT</td><td><input type="text" class="form-control" name="MantisId_INT" size="10" /></td></tr>
+        <tr><td style="padding-left: 10px;">2</td><td>IssueDetail</td><td>Title</td><td>STRING</td><td><input type="text" class="form-control" name="Title_STRING" size="10" /></td></tr>
+        <tr>
+            <td colspan="4">&nbsp;</td>
+            <td>
+                <input type="button" id="btnGetData" value="Get Data" class="btn btn-primary"/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5">
+                <div id="content">Loading...</div>
+            </td>
+        </tr>
+    </table>
+
+</form>

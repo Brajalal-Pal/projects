@@ -7,6 +7,7 @@ using BusinessLayerProject;
 
 namespace MantisProjectNew.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         public ActionResult UserProfile(string userId)

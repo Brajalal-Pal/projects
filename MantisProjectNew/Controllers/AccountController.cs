@@ -79,6 +79,7 @@ namespace MantisProjectNew.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    Session["EmailId"] = model.Email;
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
